@@ -5,12 +5,11 @@ from ..sd_pages.cart_page import CartPage
 import pytest
 
 @pytest.mark.parametrize('firstname, lastname, postalcode, expect',[
-    ('Tim', 'Lill', '1234', True),
+    ('','','', False),
     ('', 'Lill', '1234', False),
     ('Tim', '', '1234', False),
     ('Tim', 'Lill', '', False),
-    ('Tim', 'Lill', '1234', True),
-
+    ('Tim', 'Lill', '1234', True)
 ])
 def test_checkout(page, firstname, lastname, postalcode, expect):
     login = LoginPage(page)
@@ -24,7 +23,7 @@ def test_checkout(page, firstname, lastname, postalcode, expect):
     checkout_page = CheckoutPage(page)
     checkout_page.info(firstname, lastname, postalcode)
 
-    if expect:
-        assert 'checkout-step-two' in page.url
-    else:
+    if not expect:
         assert page.locator("[data-test='error']").is_visible()
+    else:
+        assert 'checkout-step-two' in page.url
