@@ -1,3 +1,5 @@
+import allure
+
 class CheckoutPage:
     def __init__(self, page):
         self.page = page
@@ -7,8 +9,9 @@ class CheckoutPage:
         self.continue_button = page.get_by_role('button' , name = 'Continue')
 
     def info(self, first_name, last_name, postal_code):
-        self.first_name.fill(first_name)
-        self.last_name.fill(last_name)
-        self.postal_code.fill(postal_code)
-        self.continue_button.click()
+        with allure.step(f'testing checkout page with {first_name} {last_name}'):
+            self.first_name.fill(first_name)
+            self.last_name.fill(last_name)
+            self.postal_code.fill(postal_code)
+            self.continue_button.click()
 

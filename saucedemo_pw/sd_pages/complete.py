@@ -1,3 +1,5 @@
+import allure
+
 class CompletePage:
     def __init__(self, page):
         self.page = page
@@ -5,4 +7,5 @@ class CompletePage:
         self.success_message = page.get_by_text('Thank you for your order!')
 
     def success(self):
-        return self.success_message.is_visible()
+        with allure.step('makin sure we completed successfully'):
+            return self.success_message.is_visible()

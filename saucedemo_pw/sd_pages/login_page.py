@@ -1,3 +1,5 @@
+import allure
+
 class LoginPage:
     def __init__(self, page):
         self.page = page
@@ -6,9 +8,11 @@ class LoginPage:
         self.login_button = page.locator('#login-button')
 
     def load(self):
-        self.page.goto('https://www.saucedemo.com', timeout= 600000)
+        with allure.step('loading url'):
+            self.page.goto('https://www.saucedemo.com', timeout= 600000)
 
     def login(self, username, password):
-        self.username_input.fill(username)
-        self.password_input.fill(password)
-        self.login_button.click()
+        with allure.step(f'Login with {username}'):
+            self.username_input.fill(username)
+            self.password_input.fill(password)
+            self.login_button.click()

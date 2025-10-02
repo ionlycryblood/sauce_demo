@@ -1,3 +1,5 @@
+import allure
+
 class ChoosePage:
     def __init__(self, page):
         self.page = page
@@ -9,12 +11,14 @@ class ChoosePage:
 
 
     def go_to_cart(self):
-        self.page.first_product.click()
-        self.page.second_product.click()
-        self.page.cart_button.click()
-        return self.page.locator("[data-test='item-quantity']").all_text_contents()
+        with allure.step('making shopping list'):
+            self.page.first_product.click()
+            self.page.second_product.click()
+            self.page.cart_button.click()
+            return self.page.locator("[data-test='item-quantity']").all_text_contents()
 
     def get_total_quantity(self):
-        quantities = self.page.locator("[data-test='item-quantity']").all_text_contents()
-        return sum(int(q) for q in quantities)
+        with allure.step('counting items'):
+            quantities = self.page.locator("[data-test='item-quantity']").all_text_contents()
+            return sum(int(q) for q in quantities)
 

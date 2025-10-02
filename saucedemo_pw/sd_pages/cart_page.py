@@ -1,3 +1,5 @@
+import allure
+
 class CartPage:
     def __init__(self, page):
         self.page = page
@@ -5,5 +7,6 @@ class CartPage:
 
 
     def checkout(self):
-        self.page.checkout_button.click()
+        with allure.step('checkout btn click'):
+            self.page.checkout_button.click()
 
